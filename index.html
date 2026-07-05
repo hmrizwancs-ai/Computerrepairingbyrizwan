@@ -9,7 +9,7 @@
     <!-- Google Fonts for Modern Premium Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
     </style>
@@ -344,44 +344,53 @@
     <section id="booking" class="py-24 container mx-auto px-6 max-w-3xl">
         <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-slate-100">
             <h3 class="text-2xl font-black text-slate-900 text-center mb-2">Schedule a Service Appointment</h3>
-            <p class="text-slate-500 text-sm text-center mb-8">Submit your address and infrastructure requirements below. We operate widely across Lahore.</p>
+            <p class="text-slate-500 text-sm text-center mb-8">Submit your details below. You will receive an email confirmation, and a WhatsApp chat window will open to finalize your booking.</p>
             
-            <form action="#" method="POST" class="space-y-6">
+            <!-- Form pointed to Web3Forms API for Email routing -->
+            <form id="appointmentForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+                
+                <!-- REQUIRED: Web3Forms Access Key -->
+                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+                <!-- Optional: Customizes the subject line of the email you receive -->
+                <input type="hidden" name="subject" value="New Service Booking Request - Computerrepairingbyrizwan">
+                <!-- Optional: Prevents spam bots -->
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Your Name / Company</label>
-                        <input type="text" required placeholder="Name" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-slate-50/50">
+                        <input type="text" id="formName" name="Client_Name" required placeholder="Name" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-slate-50/50">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Phone Number</label>
-                        <input type="tel" required placeholder="e.g., 0301-4578828" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-slate-50/50">
+                        <input type="tel" id="formPhone" name="Phone_Number" required placeholder="e.g., 0301-4578828" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-slate-50/50">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Service Group Required</label>
-                    <select class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-slate-50/50 text-slate-600">
-                        <option>Software Development / Custom Apps</option>
-                        <option>Restaurant & Retail POS System Deployments</option>
-                        <option>Call Center Inbound & Outbound Dialer / Server Config</option>
-                        <option>Critical Data Recovery & Auto-Backups</option>
-                        <option>Computer & Laptop Hardware Repairing</option>
-                        <option>Windows & Server Domain Infrastructure Setup</option>
+                    <select id="formService" name="Requested_Service" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-slate-50/50 text-slate-600">
+                        <option value="Software Development / Custom Apps">Software Development / Custom Apps</option>
+                        <option value="Restaurant & Retail POS System Deployments">Restaurant & Retail POS System Deployments</option>
+                        <option value="Call Center Dialer / Server Config">Call Center Inbound & Outbound Dialer / Server Config</option>
+                        <option value="Critical Data Recovery & Auto-Backups">Critical Data Recovery & Auto-Backups</option>
+                        <option value="Computer & Laptop Hardware Repairing">Computer & Laptop Hardware Repairing</option>
+                        <option value="Windows & Server Domain Infrastructure Setup">Windows & Server Domain Infrastructure Setup</option>
                     </select>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Your Lahore Location Address</label>
-                    <input type="text" required placeholder="Office/Shop/House Address in Lahore" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-slate-50/50">
+                    <input type="text" id="formAddress" name="Lahore_Address" required placeholder="Office/Shop/House Address in Lahore" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-slate-50/50">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Describe the Project or Issue</label>
-                    <textarea rows="4" placeholder="Please provide specific details about your software, call center server, or computer hardware requirements..." required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-slate-50/50"></textarea>
+                    <textarea id="formDetails" name="Project_Details" rows="4" placeholder="Please provide specific details..." required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-slate-50/50"></textarea>
                 </div>
 
                 <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition duration-200 text-sm tracking-wide uppercase">
-                    Submit Request
+                    Submit Request & Connect on WhatsApp
                 </button>
             </form>
         </div>
@@ -430,6 +439,39 @@
             <p>&copy; 2026 Computerrepairingbyrizwan. All rights reserved. Architecture designed for premium software and operational IT deployment.</p>
         </div>
     </footer>
+
+    <!-- WhatsApp Dual-Action Javascript Trigger -->
+    <script>
+        document.getElementById('appointmentForm').addEventListener('submit', function(event) {
+            // 1. Gather all form values to construct the text message
+            const name = document.getElementById('formName').value;
+            const phone = document.getElementById('formPhone').value;
+            const service = document.getElementById('formService').value;
+            const address = document.getElementById('formAddress').value;
+            const details = document.getElementById('formDetails').value;
+
+            // 2. Format a highly readable message for your phone
+            const whatsappMessage = `Hello Engr. Rizwan,%0A%0A` +
+                                    `*New Booking Request Submitted* 🚀%0A` +
+                                    `-----------------------------------%0A` +
+                                    `👤 *Client Name:* ${encodeURIComponent(name)}%0A` +
+                                    `📞 *Phone:* ${encodeURIComponent(phone)}%0A` +
+                                    `🛠️ *Service:* ${encodeURIComponent(service)}%0A` +
+                                    `📍 *Address:* ${encodeURIComponent(address)}%0A` +
+                                    `📝 *Details:* ${encodeURIComponent(details)}%0A` +
+                                    `-----------------------------------%0A` +
+                                    `Please review my submission. Thanks!`;
+
+            // Your preferred primary WhatsApp Number
+            const targetWhatsAppNumber = "923014578828"; 
+            const whatsappUrl = `https://wa.me/${targetWhatsAppNumber}?text=${whatsappMessage}`;
+
+            // 3. Open WhatsApp in a separate tab so the main page can finish submitting to your email
+            setTimeout(function() {
+                window.open(whatsappUrl, '_blank');
+            }, 800); 
+        });
+    </script>
 
 </body>
 </html>
